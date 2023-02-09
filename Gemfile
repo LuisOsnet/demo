@@ -48,9 +48,25 @@ gem "bootsnap", require: false
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
+# Authentication
+gem 'devise'
+gem 'devise-jwt'
+# Environment variable
+gem 'figaro'
+# Localize rails applications.
+gem 'rails-i18n'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'awesome_print', '~> 1.9', '>= 1.9.2'
+  gem 'factory_bot_rails'
+  gem 'pry-rails', '~> 0.3'
+  gem 'rspec-rails', '~> 5.1'
+  gem 'rubocop', require: false
+  gem 'rubocop-performance', require: false
+  gem 'rubocop-rails', require: false
+  gem 'simplecov', require: false, group: :test
 end
 
 group :development do
