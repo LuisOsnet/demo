@@ -55,6 +55,8 @@ gem 'devise-jwt'
 gem 'figaro'
 # Localize rails applications.
 gem 'rails-i18n'
+# Roles library
+gem "rolify"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
