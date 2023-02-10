@@ -1,4 +1,4 @@
-User.create!(
+super_user = User.create!(
   [
     {
       name: 'Luis Osnet',
@@ -13,3 +13,5 @@ User.create!(
 )
 
 p "Created #{User.count} users"
+
+super_user.add_role(:super_user)

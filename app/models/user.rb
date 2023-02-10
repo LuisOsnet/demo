@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
   include Devise::JWT::RevocationStrategies::JTIMatcher
   # Include devise modules.
   devise :database_authenticatable,
