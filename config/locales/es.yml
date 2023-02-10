@@ -1,0 +1,8 @@
+es:
+  response:
+    devise:
+      sessions:
+        signed_in: Sesión iniciada.
+        signed_out: Sesión finalizada.
+      failure:
+        invalid: "Email o contraseña inválidos."
