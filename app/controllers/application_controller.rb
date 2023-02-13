@@ -14,7 +14,6 @@ class ApplicationController < ActionController::Base
   private
 
   def unauthenticated
-    render json: I18n.t('response.devise.failure.invalid'),
-    status: :unauthorized
+    error(:unauthorized)
   end
 end
