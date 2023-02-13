@@ -11,8 +11,16 @@ module Api
         private
 
         ##
-        # If the resource is valid, render the resource as JSON with a status of
-        # 200
+        # It returns an unauthenticated response if the resource is not valid,
+        # otherwise it returns a signed in response
+        #
+        # Args:
+        #   resource: The resource that was passed to the `sign_in` method.
+        #   _opts: This is a hash of options that you can pass to the respond_with
+        # method. Defaults to {}
+        #
+        # Returns:
+        #   The response is being returned as a JSON object.
         def respond_with(resource, _opts = {})
           return unauthenticated unless resource.valid?
 
@@ -20,11 +28,9 @@ module Api
         end
 
         ##
-        # It returns a JSON response unauthorized if something is missing or wrong
+        # > If the user is not authenticated, return an error message
         def unauthenticated
-          wrong_request(
-            I18n.t('response.devise.failure.invalid'), :unauthorized
-          )
+          error(:unauthorized)
         end
 
         ##
