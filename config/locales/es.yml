@@ -3,6 +3,10 @@ es:
     devise:
       sessions:
         signed_in: Sesión iniciada.
-        signed_out: Sesión finalizada.
-      failure:
-        invalid: "Email o contraseña inválidos."
+    errors:
+      messages:
+        unauthorized: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        no_content: El servidor procesó correctamente la solicitud, pero no devuelve ningún contenido.
+        unprocessable_entity: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+        not_found: 'El servidor no puede encontrar el recurso solicitado por el navegador y no es posible determinar si esta ausencia es temporal o permanente.'
+        missing_role: vacio, el usuario debe tener un rol asignado
