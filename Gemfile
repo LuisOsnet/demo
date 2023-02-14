@@ -57,6 +57,8 @@ gem 'figaro'
 gem 'rails-i18n'
 # Roles library
 gem "rolify"
+# Track changes in the models
+gem 'paper_trail'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
