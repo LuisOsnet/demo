@@ -34,6 +34,7 @@ module Api
 					team = Team.find(@params[:id])
 					user = User.find(@params[:user_id])
 					team.users << user
+					add_log(user, team)
 					team
 				end
 			end
@@ -43,8 +44,32 @@ module Api
 					team = Team.find(@params[:id])
 					user = User.find(@params[:user_id])
 					team.users.delete(user)
+					update_log(user, team)
 					team
 				end
+			end
+
+			private
+
+			def add_log(user, team)
+				track = team.tracks.build(
+					user_id: user.id,
+					user_name: user.name,
+					team_id: team.id,
+					team_name: team.name,
+					started_at: Time.now
+				)
+
+				track.save
+			end
+
+			def update_log(user, team)
+				track = team.tracks.where(
+					user_id: user.id,
+					team_id: team.id,
+					ended_at: nil
+				).last
+				track.update!(ended_at: Time.now)
 			end
 		end
 	end

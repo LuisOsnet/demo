@@ -19,4 +19,5 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 100 },
                     format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
+	has_many :tracks, as: :trackable
 end
