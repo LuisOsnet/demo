@@ -28,6 +28,24 @@ module Api
 			def destroy
         Team&.destroy @params[:team_id]
       end
+
+			def assign
+				ActiveRecord::Base.transaction do
+					team = Team.find(@params[:id])
+					user = User.find(@params[:user_id])
+					team.users << user
+					team
+				end
+			end
+
+			def remove
+				ActiveRecord::Base.transaction do
+					team = Team.find(@params[:id])
+					user = User.find(@params[:user_id])
+					team.users.delete(user)
+					team
+				end
+			end
 		end
 	end
 end

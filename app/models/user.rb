@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   rolify
+  has_one :team
+  has_paper_trail
   include Devise::JWT::RevocationStrategies::JTIMatcher
   # Include devise modules.
   devise :database_authenticatable,

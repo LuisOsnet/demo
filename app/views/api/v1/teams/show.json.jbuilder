@@ -6,10 +6,15 @@ json.team do
 	json.created_at @team&.created_at&.strftime('%d-%m-%Y %T')
 	
 	json.account do
-		json.id @team&.account&.id
 		json.name @team&.account&.name
 		json.client_name @team&.account&.client_name
 		json.owner @team&.account&.owner
-		json.created_at @team&.account&.created_at&.strftime('%d-%m-%Y %T')
+	end
+
+	json.users do
+		json.array! @team&.users do |user|
+			json.id user&.id
+			json.user user&.name
+		end
 	end
 end

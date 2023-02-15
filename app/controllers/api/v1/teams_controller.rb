@@ -48,6 +48,26 @@ class Api::V1::TeamsController < ApplicationController
     )
   end
 
+  def assign_user
+		@team = teams_service(filtered_params).assign
+		render :show, status: :created
+	rescue StandardError => e
+		error(
+			:unprocessable_entity,
+			e&.message
+		)
+	end
+
+  def remove_user
+		@team = teams_service(filtered_params).remove
+		render :show, status: :created
+	rescue StandardError => e
+		error(
+			:unprocessable_entity,
+			e&.message
+		)
+	end
+
 	private
 
   def teams_service(filtered_params)
@@ -57,7 +77,8 @@ class Api::V1::TeamsController < ApplicationController
 	def filtered_params
     params.require(:team).permit(
       :name,
-			:account_id
+			:account_id,
+      :user_id
     ).merge(id: params[:id])
   end
 end
