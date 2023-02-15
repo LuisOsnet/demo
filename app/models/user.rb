@@ -1,5 +1,7 @@
 class User < ApplicationRecord
   rolify
+  has_one :team
+  has_paper_trail
   include Devise::JWT::RevocationStrategies::JTIMatcher
   # Include devise modules.
   devise :database_authenticatable,
@@ -17,4 +19,5 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 100 },
                     format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
+	has_many :tracks, as: :trackable
 end
