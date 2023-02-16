@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
   rescue_from 'ActionController::ParameterMissing', with: :parameters_missing
   rescue_from 'ActiveRecord::RecordNotFound', with: :not_found
   include RequestResponses
+  include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def authenticate_user!
     return unauthenticated unless user_signed_in?
