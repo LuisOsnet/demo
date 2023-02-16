@@ -2,15 +2,27 @@
 
 class Api::V1::TeamsController < ApplicationController
 	def index
+    authorize :user, :index?
     @teams = teams_service({}).index
     return render :index, status: :ok unless @teams.empty?
 
     error(:no_content)
+  rescue StandardError => e
+    error(
+      :unprocessable_entity,
+      e&.message
+    )
   end
 
 	def show
+    authorize :user, :show?
     @team = teams_service({ team_id: params[:id] }).show
     render :show, status: :ok
+  rescue StandardError => e
+    error(
+      :unprocessable_entity,
+      e&.message
+    )
   rescue ActiveRecord::RecordNotFound => e
     error(
       :not_found,
@@ -19,6 +31,7 @@ class Api::V1::TeamsController < ApplicationController
   end
 
 	def create
+    authorize :user, :create?
 		@team = teams_service(filtered_params).create
 		render :create, status: :created
 	rescue StandardError => e
@@ -29,6 +42,7 @@ class Api::V1::TeamsController < ApplicationController
 	end
 
 	def update
+    authorize :user, :update?
     @team = teams_service(filtered_params).update
     render :show, status: :ok
   rescue StandardError => e
@@ -41,6 +55,11 @@ class Api::V1::TeamsController < ApplicationController
 	def destroy
     teams_service({ team_id: params[:id] }).destroy
     head(:no_content)
+  rescue StandardError => e
+    error(
+      :unprocessable_entity,
+      e&.message
+    )
   rescue ActiveRecord::RecordNotFound => e
     error(
       :not_found,

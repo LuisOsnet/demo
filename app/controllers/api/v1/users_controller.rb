@@ -1,12 +1,21 @@
 class Api::V1::UsersController < ApplicationController
   def index
+    authorize :user, :index?
     @users = users_service({}).index
     return render :index, status: :ok unless @users.empty?
 
     error(:no_content)
+  rescue StandardError => e
+    error(
+      :unprocessable_entity,
+      e&.message
+    )
   end
 
   def show
+    return show_user if current_user.has_role? :user
+
+    authorize :user, :show?
     @user = users_service({ user_id: params[:id] }).show
     render :show, status: :ok
   rescue ActiveRecord::RecordNotFound => e
@@ -16,7 +25,19 @@ class Api::V1::UsersController < ApplicationController
     )
   end
 
+  def show_user
+    authorize :user, :show_user?
+    @user = users_service({ user_id: current_user.id }).show
+    render :show_user, status: :ok
+  rescue ActiveRecord::RecordNotFound => e
+    error(
+      :not_found,
+      e&.message
+    )
+  end
+
   def create
+    authorize :user, :create?
     @user = users_service(filtered_params).create
     render :create, status: :created
   rescue StandardError => e
@@ -27,6 +48,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
+    authorize :user, :update?
     @user = users_service(filtered_params).update
     render :show, status: :ok
   rescue StandardError => e
@@ -37,6 +59,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def destroy
+    authorize :user, :destroy?
     users_service({ user_id: params[:id] }).destroy
     head(:no_content)
   rescue ActiveRecord::RecordNotFound => e
