@@ -61,6 +61,8 @@ gem "rolify"
 gem 'paper_trail'
 # Policies
 gem 'pundit', '~> 2.2'
+# Handling Cross-Origin Resource
+gem 'rack-cors', :require => 'rack/cors'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
