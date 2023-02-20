@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   rescue_from 'ActiveRecord::RecordNotFound', with: :not_found
   include RequestResponses
   include Pundit::Authorization
+  include SentryNotify
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def authenticate_user!
