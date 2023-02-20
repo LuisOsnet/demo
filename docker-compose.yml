@@ -20,8 +20,8 @@ services:
     <<: *app-base
     build: .
     ports:
-      - "3000:3000"
-    command: ./bin/rails s -p 3000 -b '0.0.0.0'
+      - "3001:3001"
+    command: ./bin/rails s -p 3001 -b '0.0.0.0'
     depends_on:
       - database
     tty: true

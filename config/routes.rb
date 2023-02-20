@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: %i[index create show update destroy]
+      resources :users, defaults: { format: :json }, only: %i[index create show update destroy]
       resources :accounts, only: %i[index create show update destroy]
       resources :teams, only: %i[index create show update destroy] do
         member do

@@ -10,7 +10,7 @@ module Api
       ##
       # It returns all the users in the database.
       def index
-        User.all
+        User.all_except(@params[:current_user])
       end
 
       ##

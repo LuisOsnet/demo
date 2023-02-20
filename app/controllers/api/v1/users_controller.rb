@@ -1,11 +1,12 @@
 class Api::V1::UsersController < ApplicationController
   def index
     authorize :user, :index?
-    @users = users_service({}).index
+    @users = users_service({ current_user: current_user }).index
     return render :index, status: :ok unless @users.empty?
 
     error(:no_content)
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
       e&.message
@@ -19,6 +20,7 @@ class Api::V1::UsersController < ApplicationController
     @user = users_service({ user_id: params[:id] }).show
     render :show, status: :ok
   rescue ActiveRecord::RecordNotFound => e
+    notify(e)
     error(
       :not_found,
       e&.message
@@ -29,11 +31,6 @@ class Api::V1::UsersController < ApplicationController
     authorize :user, :show_user?
     @user = users_service({ user_id: current_user.id }).show
     render :show_user, status: :ok
-  rescue ActiveRecord::RecordNotFound => e
-    error(
-      :not_found,
-      e&.message
-    )
   end
 
   def create
@@ -41,6 +38,7 @@ class Api::V1::UsersController < ApplicationController
     @user = users_service(filtered_params).create
     render :create, status: :created
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
       e&.message
@@ -52,6 +50,7 @@ class Api::V1::UsersController < ApplicationController
     @user = users_service(filtered_params).update
     render :show, status: :ok
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
       e&.message
@@ -62,9 +61,10 @@ class Api::V1::UsersController < ApplicationController
     authorize :user, :destroy?
     users_service({ user_id: params[:id] }).destroy
     head(:no_content)
-  rescue ActiveRecord::RecordNotFound => e
+  rescue StandardError => e
+    notify(e)
     error(
-      :not_found,
+      :unprocessable_entity,
       e&.message
     )
   end
