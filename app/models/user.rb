@@ -20,4 +20,6 @@ class User < ApplicationRecord
                     format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
 	has_many :tracks, as: :trackable
+
+	scope :all_except, ->(user) { where.not(id: user) }
 end

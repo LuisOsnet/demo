@@ -73,6 +73,7 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'pry-rails', '~> 0.3'
   gem 'rspec-rails', '~> 5.1'
+  gem 'faker'
   gem 'rubocop', require: false
   gem 'rubocop-performance', require: false
   gem 'rubocop-rails', require: false

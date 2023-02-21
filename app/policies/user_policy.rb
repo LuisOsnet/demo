@@ -30,4 +30,12 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     @user.has_role?(:admin) || @user.has_role?(:super_user)
   end
+
+  def assign_user?
+    @user.has_role?(:admin) || @user.has_role?(:super_user)
+  end
+
+  def remove_user?
+    @user.has_role?(:admin) || @user.has_role?(:super_user)
+  end
 end

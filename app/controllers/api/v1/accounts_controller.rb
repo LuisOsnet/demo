@@ -8,6 +8,7 @@ class Api::V1::AccountsController < ApplicationController
 
     error(:no_content)
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
       e&.message
@@ -19,13 +20,9 @@ class Api::V1::AccountsController < ApplicationController
     @account = accounts_service({ account_id: params[:id] }).show
     render :show, status: :ok
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
-      e&.message
-    )
-  rescue ActiveRecord::RecordNotFound => e
-    error(
-      :not_found,
       e&.message
     )
   end
@@ -35,6 +32,7 @@ class Api::V1::AccountsController < ApplicationController
     @account = accounts_service(filtered_params).create
     render :create, status: :created
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
       e&.message
@@ -46,6 +44,7 @@ class Api::V1::AccountsController < ApplicationController
     @account = accounts_service(filtered_params).update
     render :show, status: :ok
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
       e&.message
@@ -57,13 +56,9 @@ class Api::V1::AccountsController < ApplicationController
     accounts_service({ account_id: params[:id] }).destroy
     head(:no_content)
   rescue StandardError => e
+    notify(e)
     error(
       :unprocessable_entity,
-      e&.message
-    )
-  rescue ActiveRecord::RecordNotFound => e
-    error(
-      :not_found,
       e&.message
     )
   end

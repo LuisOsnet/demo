@@ -69,7 +69,7 @@ module Api
 					team_id: team.id,
 					ended_at: nil
 				).last
-				track.update!(ended_at: Time.now)
+				track.update!(ended_at: Time.now) if track
 			end
 		end
 	end
