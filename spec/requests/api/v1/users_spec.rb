@@ -4,7 +4,7 @@ RSpec.describe "Api::V1::Users", type: :request do
   describe 'User#index' do
     let (:super_user) { create(:user, :super_user) }
 
-    context "when e are no registered users" do
+    context "when are no registered users" do
       before do
         sign_in super_user
       end

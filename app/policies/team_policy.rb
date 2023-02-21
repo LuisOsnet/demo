@@ -8,7 +8,6 @@ class TeamPolicy < ApplicationPolicy
   end
 
   def index?
-    binding.pry
     @user.has_role?(:admin) || @user.has_role?(:super_user)
   end
 

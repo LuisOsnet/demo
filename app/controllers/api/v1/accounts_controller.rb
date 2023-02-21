@@ -23,11 +23,6 @@ class Api::V1::AccountsController < ApplicationController
       :unprocessable_entity,
       e&.message
     )
-  rescue ActiveRecord::RecordNotFound => e
-    error(
-      :not_found,
-      e&.message
-    )
   end
 
   def create
@@ -59,11 +54,6 @@ class Api::V1::AccountsController < ApplicationController
   rescue StandardError => e
     error(
       :unprocessable_entity,
-      e&.message
-    )
-  rescue ActiveRecord::RecordNotFound => e
-    error(
-      :not_found,
       e&.message
     )
   end
