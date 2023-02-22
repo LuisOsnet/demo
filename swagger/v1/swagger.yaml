@@ -1,0 +1,69 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+components:
+  securitySchemes:
+    Bearer:
+      description: JWT key necessary to use API calls
+      type: apiKey
+      name: Authorization
+      in: header
+paths:
+  "/api/v1/login":
+    post:
+      summary: Create session
+      tags:
+      - Authentication
+      parameters: []
+      responses:
+        '200':
+          description: session created
+        '401':
+          description: Unauthorized request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user:
+                  properties:
+                    email:
+                      type: string
+                      example: superuser@mind.com
+                    password:
+                      type: string
+                      example: password
+              required:
+              - email
+              - password
+  "/api/v1/logout":
+    post:
+      summary: Destroy session
+      tags:
+      - Authentication
+      responses:
+        '204':
+          description: no content
+        '401':
+          description: Unauthorized request
+  "/api/v1/users":
+    get:
+      summary: List users
+      tags:
+      - Users
+      security:
+      - Bearer: []
+      responses:
+        '200':
+          description: session created
+        '422':
+          description: Unprocessable entity
+servers:
+- url: https://osnet.herokuapp.com
+- url: http://localhost:3001
+  variables:
+    defaultHost:
+      default: http://localhost:3001

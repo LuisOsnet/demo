@@ -21,15 +21,28 @@ RSpec.configure do |config|
         title: 'API V1',
         version: 'v1'
       },
+      components: {
+        securitySchemes: {
+          Bearer: {
+            description: 'JWT key necessary to use API calls',
+            type: :apiKey,
+            name: 'Authorization',
+            in: :header
+          }
+        }
+      },
       paths: {},
       servers: [
         {
-          url: 'https://{defaultHost}',
+          url: 'http://localhost:3001',
           variables: {
             defaultHost: {
-              default: 'www.example.com'
+              default: 'http://localhost:3001'
             }
           }
+        },
+        {
+          url: 'https://osnet.herokuapp.com'
         }
       ]
     }
