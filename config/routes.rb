@@ -19,6 +19,8 @@ Rails.application.routes.draw do
           post :remove, to: "teams#remove_user", as: :remove_user
         end
       end
+
+      resources :tracks, defaults: { format: :json }, only: %i[index]
     end
   end
 end
