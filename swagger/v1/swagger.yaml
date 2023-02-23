@@ -28,7 +28,7 @@ info:
     - Movimientos
       - Permite visualizar los movimientos realizados en cada uno de los integrantes de un equipo, es decir, sirve como un log el cual muestra el nombre del usuario, nombre del equipo, fecha de asignacion a un equipo y fecha en la que se elimino del equipo.
       
-    Para consumir cualquiera de los endpoints es necesario generar un Bearer token el cual se genera mediante el endpoint sign in, después de generarlo copiarlo y pegarlo en el header Authorize.
+    Para consumir cualquiera de los endpoints es necesario autenticarce previamente y especificar el token en el header de autenticación.
 servers:
   - url: http://localhost:3001
   - url: https://osnet.herokuapp.com
@@ -424,14 +424,14 @@ paths:
                   account:
                     properties:
                       name:
-                      type: string
-                      example: Telmex
-                    client_name:
-                      type: string
-                      example: Carlos Slim
-                    owner:
-                      type: string
-                      example: Jon Due
+                        type: string
+                        example: Telmex
+                      client_name:
+                        type: string
+                        example: Carlos Slim
+                      owner:
+                        type: string
+                        example: Jon Due
         401:
           description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
         422:
@@ -492,3 +492,354 @@ paths:
           description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
         422:
           description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+## Teams
+  /api/v1/teams:
+    get:
+      summary: List teams
+      tags:
+      - Teams
+      security:
+      - Bearer: []
+      responses:
+        200:
+          description: Ok
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    post:
+      summary: Create team
+      tags:
+        - Teams
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  properties:
+                    name:
+                      type: string
+                      example: Telmex
+                    account_id:
+                      type: string
+                      example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                  required:
+                    - name
+                    - account_id
+      responses:
+        201:
+          description: object created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    properties:
+                      name:
+                        type: string
+                        example: Telmex
+                      account_id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+  /api/v1/teams/{id}:
+    put:
+      summary: Update team by id
+      parameters:
+      - name: id
+        in: path
+        description: ID of team to update
+        required: true
+        schema:
+          type: string
+      tags:
+        - Teams
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  properties:
+                    name:
+                      type: string
+                      example: Telmex
+                    account_id:
+                      type: string
+                      example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                  required:
+                    - name
+                    - account_id
+      responses:
+        200:
+          description: object updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      name:
+                        type: string
+                        example: Backend
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      account:
+                        properties:
+                          name:
+                            type: string
+                            example: Telmex
+                          client_name:
+                            type: string
+                            example: Carlos Slim
+                          owner:
+                            type: string
+                            example: Jon Due
+                      users:
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                            name:
+                              type: string
+                              example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    get:
+      summary: Fetch team by id
+      parameters:
+      - name: id
+        in: path
+        description: ID of team to fetch
+        required: true
+        schema:
+          type: string
+      tags:
+        - Teams
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      name:
+                        type: string
+                        example: Backend
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      account:
+                        properties:
+                          name:
+                            type: string
+                            example: Telmex
+                          client_name:
+                            type: string
+                            example: Carlos Slim
+                          owner:
+                            type: string
+                            example: Jon Due
+                      users:
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                            name:
+                              type: string
+                              example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    delete:
+      summary: Delete team by id
+      parameters:
+      - name: id
+        in: path
+        description: ID of team to delete
+        required: true
+        schema:
+          type: string
+      tags:
+        - Teams
+      security:
+        - Bearer: []
+      responses:
+        204:
+          description: No content
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+  /api/v1/teams/{id}/assign:
+    post:
+      summary: Assign an user to a team
+      parameters:
+        - name: id
+          in: path
+          description: ID of team to assign a user
+          required: true
+          schema:
+            type: string
+      tags:
+        - Teams
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  properties:
+                    user_id:
+                      type: string
+                      example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                  required:
+                    - user_id
+      responses:
+        201:
+          description: object created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      name:
+                        type: string
+                        example: Backend
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      account:
+                        properties:
+                          name:
+                            type: string
+                            example: Telmex
+                          client_name:
+                            type: string
+                            example: Carlos Slim
+                          owner:
+                            type: string
+                            example: Jon Due
+                      users:
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                            name:
+                              type: string
+                              example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+  /api/v1/teams/{id}/remove:
+    post:
+      summary: Remove an user from a team
+      parameters:
+        - name: id
+          in: path
+          description: ID of team to Remove a user
+          required: true
+          schema:
+            type: string
+      tags:
+        - Teams
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                team:
+                  properties:
+                    user_id:
+                      type: string
+                      example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                  required:
+                    - user_id
+      responses:
+        201:
+          description: object created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  team:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      name:
+                        type: string
+                        example: Backend
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      account:
+                        properties:
+                          name:
+                            type: string
+                            example: Telmex
+                          client_name:
+                            type: string
+                            example: Carlos Slim
+                          owner:
+                            type: string
+                            example: Jon Due
+                      users:
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                            name:
+                              type: string
+                              example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    
