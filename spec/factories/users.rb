@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :user do
     name { Faker::Name.unique.name }
@@ -8,16 +10,15 @@ FactoryBot.define do
     password { Faker::Internet.password }
 
     trait :super_user do
-      after(:create) {|user| user.add_role(:super_user)}
+      after(:create) { |user| user.add_role(:super_user) }
     end
 
     trait :admin do
-      after(:create) {|user| user.add_role(:admin)}
+      after(:create) { |user| user.add_role(:admin) }
     end
 
     trait :user do
-      after(:create) {|user| user.add_role(:user)}
+      after(:create) { |user| user.add_role(:user) }
     end
-
   end
 end

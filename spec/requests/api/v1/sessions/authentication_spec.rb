@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Sessions::Authentication", type: :request do
+RSpec.describe 'Api::V1::Sessions::Authentication', type: :request do
   describe User do
-    let (:super_user) { create(:user, :super_user) }
-    let (:admin) { create(:user, :admin, password: '123456') }
-    let (:user) { create(:user, :user) }
+    let(:super_user) { create(:user, :super_user) }
+    let(:admin) { create(:user, :admin, password: '123456') }
+    let(:user) { create(:user, :user) }
     let(:login_url) { '/api/v1/login' }
     let(:logout_url) { '/api/v1/logout' }
 
-    context "when login as user" do
+    context 'when login as user' do
       it 'super_user should returns 200' do
         post login_url, params: {
           user: {
@@ -40,7 +42,7 @@ RSpec.describe "Api::V1::Sessions::Authentication", type: :request do
       end
     end
 
-    context "when login as user" do
+    context 'when login as user' do
       it 'super_user should returns 401' do
         post login_url, params: {
           user: {

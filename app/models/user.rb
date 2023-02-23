@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   rolify
   has_one :team
@@ -19,7 +21,7 @@ class User < ApplicationRecord
   validates :email, presence: true, length: { maximum: 100 },
                     format: { with: URI::MailTo::EMAIL_REGEXP }, uniqueness: true
 
-	has_many :tracks, as: :trackable
+  has_many :tracks, as: :trackable
 
-	scope :all_except, ->(user) { where.not(id: user) }
+  scope :all_except, ->(user) { where.not(id: user) }
 end

@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 class Api::V1::UsersController < ApplicationController
   def index
     authorize :user, :index?
-    @users = users_service({ current_user: current_user }).index
+    @users = users_service({ current_user: }).index
     return render :index, status: :ok unless @users.empty?
 
     error(:no_content)

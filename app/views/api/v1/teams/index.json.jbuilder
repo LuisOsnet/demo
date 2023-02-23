@@ -5,7 +5,7 @@ json.teams do
     json.id team&.id
     json.name team&.name
     json.created_at team&.created_at&.strftime('%d-%m-%Y %T')
-    
+
     json.account do
       json.id team&.account&.id
       json.name team&.account&.name

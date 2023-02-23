@@ -17,8 +17,8 @@ Rails.application.routes.draw do
       resources :accounts, defaults: { format: :json }, only: %i[index create show update destroy]
       resources :teams, defaults: { format: :json }, only: %i[index create show update destroy] do
         member do
-          post :assign, to: "teams#assign_user", as: :assign_user
-          post :remove, to: "teams#remove_user", as: :remove_user
+          post :assign, to: 'teams#assign_user', as: :assign_user
+          post :remove, to: 'teams#remove_user', as: :remove_user
         end
       end
 
