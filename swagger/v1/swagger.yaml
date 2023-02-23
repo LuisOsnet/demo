@@ -842,4 +842,83 @@ paths:
           description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
         422:
           description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
-    
+## Movements
+  /api/v1/tracks:
+    get:
+      summary: List logs
+      parameters:
+        - name: user_id
+          in: query
+          description: ID of user to fetch
+          schema:
+            type: string
+        - name: user_name
+          in: query
+          description: ID of user to fetch
+          schema:
+            type: string
+        - name: team_id
+          in: query
+          description: ID of user to fetch
+          schema:
+            type: string
+        - name: team_name
+          in: query
+          description: ID of user to fetch
+          schema:
+            type: string
+        - name: started_at
+          in: query
+          description: ID of user to fetch
+          schema:
+            type: string
+        - name: ended_at
+          in: query
+          description: ID of user to fetch
+          schema:
+            type: string
+      tags:
+      - Logs
+      security:
+      - Bearer: []
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  movements:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      user_id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      user_name:
+                        type: string
+                        example: Jon Due
+                      team_id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      team_name:
+                        type: string
+                        example: Backend
+                      started_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      ended_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      updated_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
