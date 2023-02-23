@@ -81,6 +81,40 @@ paths:
       responses:
         200:
           description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      name:
+                        type: string
+                        example: Jon Due
+                      level_english:
+                        type: string
+                        example: B2
+                      technical_knowledge:
+                        type: string
+                        example: Backend
+                      email:
+                        type: string
+                        example: jd@example.com
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      roles:
+                        items:
+                          type: object
+                          properties:
+                            role:
+                              type: string
+                              example: admin
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
         422:
           description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
     post:
@@ -326,6 +360,41 @@ paths:
       responses:
         200:
           description: Ok
+          content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    accounts:
+                      properties:
+                        id:
+                          type: string
+                          example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                        name:
+                          type: string
+                          example: Coca Cola
+                        client_name:
+                          type: string
+                          example: Anais Zieman
+                        owner:
+                          type: string
+                          example: Blair Purdy
+                        created_at:
+                          type: string
+                          example: 22-02-2023 19:15:58
+                        teams:
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                                example: cf3c38d8-1a94-431a-ac6d-ba0f204693cc
+                              name:
+                                type: string
+                                example: Data
+                              created_at:
+                                type: string
+                                example: 22-02-2023 19:15:58
         422:
           description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
     post:
@@ -503,6 +572,39 @@ paths:
       responses:
         200:
           description: Ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  teams:
+                    properties:
+                      id:
+                        type: string
+                        example: 1b63940f-3bba-49c4-9a42-72c45f337d3b
+                      name:
+                        type: string
+                        example: Frontend
+                      created_at:
+                        type: string
+                        example: 22-02-2023 19:15:58
+                      account:
+                        properties:
+                          id:
+                            type: string
+                            example: cf3c38d8-1a94-431a-ac6d-ba0f204693cc
+                          name:
+                            type: string
+                            example: Coca Cola
+                          client_name:
+                            type: string
+                            example: Anais Ziemann
+                          owner:
+                            type: string
+                            example: Blair Purdy
+                          created_at:
+                            type: string
+                            example: 22-02-2023 19:15:58
         422:
           description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
     post:
