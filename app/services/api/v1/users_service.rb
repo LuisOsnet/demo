@@ -51,10 +51,10 @@ module Api
 
       ##
       # > Add roles to a user
-      # 
+      #
       # Args:
       #   user: The user object that we're adding roles to.
-      # 
+      #
       # Returns:
       #   The return value of the last line of the method.
       def add_roles_to(user)

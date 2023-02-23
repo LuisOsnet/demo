@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 super_user = User.create!(
   name: 'Emmett Hermiston I',
   level_english: 'B1',

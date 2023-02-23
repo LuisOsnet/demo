@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  context "valid Factory" do
-    it "has a valid factory" do
+  context 'valid Factory' do
+    it 'has a valid factory' do
       expect(build(:user)).to be_valid
     end
   end
 
-  context "validations" do
-    let (:super_user) { create(:user, :super_user) }
+  context 'validations' do
+    let(:super_user) { create(:user, :super_user) }
     it 'Validate fields' do
       expect(super_user.email.present?).to eq(true)
       expect(super_user.password.present?).to eq(true)

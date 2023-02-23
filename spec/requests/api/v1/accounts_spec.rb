@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
-RSpec.describe "Api::V1::Accounts", type: :request do
-  describe "GET /index" do
-    let (:super_user) { create(:user, :super_user) }
-    let (:admin) { create(:user, :admin) }
-    let (:final_user) { create(:user, :user) }
+RSpec.describe 'Api::V1::Accounts', type: :request do
+  describe 'GET /index' do
+    let(:super_user) { create(:user, :super_user) }
+    let(:admin) { create(:user, :admin) }
+    let(:final_user) { create(:user, :user) }
 
     context 'when super_user try to list empty accounts' do
       before do
@@ -59,7 +61,7 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "should to be an instance of hash" do
+      it 'should to be an instance of hash' do
         get api_v1_accounts_path
         expect(response).to have_http_status(:ok)
         body = JSON.parse(response.body)
@@ -81,7 +83,7 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         expect(response).to have_http_status(:ok)
       end
 
-      it "should to be an instance of hash" do
+      it 'should to be an instance of hash' do
         get api_v1_accounts_path
         expect(response).to have_http_status(:ok)
         body = JSON.parse(response.body)
@@ -91,9 +93,9 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   end
 
   describe 'GET /show' do
-    let (:super_user) { create(:user, :super_user) }
-    let (:admin) { create(:user, :admin) }
-    let (:final_user) { create(:user, :user) }
+    let(:super_user) { create(:user, :super_user) }
+    let(:admin) { create(:user, :admin) }
+    let(:final_user) { create(:user, :user) }
 
     context 'when super_user try to retrieve an account does not exist' do
       before do
@@ -130,7 +132,7 @@ RSpec.describe "Api::V1::Accounts", type: :request do
     end
 
     context 'when super_user try to retrieve an account' do
-      let (:account) { create(:account) }
+      let(:account) { create(:account) }
 
       before do
         sign_in super_user
@@ -150,7 +152,7 @@ RSpec.describe "Api::V1::Accounts", type: :request do
     end
 
     context 'when admin try to retrieve an account' do
-      let (:account) { create(:account) }
+      let(:account) { create(:account) }
 
       before do
         sign_in admin
@@ -170,7 +172,7 @@ RSpec.describe "Api::V1::Accounts", type: :request do
     end
 
     context 'when final_user try to retrieve an account' do
-      let (:account) { create(:account) }
+      let(:account) { create(:account) }
 
       before do
         sign_in final_user
@@ -190,9 +192,9 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   end
 
   describe 'POST /create' do
-    let (:super_user) { create(:user, :super_user) }
-    let (:admin) { create(:user, :admin) }
-    let (:final_user) { create(:user, :user) }
+    let(:super_user) { create(:user, :super_user) }
+    let(:admin) { create(:user, :admin) }
+    let(:final_user) { create(:user, :user) }
 
     context 'when super_user create an account' do
       before do
@@ -260,7 +262,7 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it "should return message error" do
+      it 'should return message error' do
         post api_v1_accounts_path, params: create_params
         body = JSON.parse(response.body)
         expect(body['error']['details']).to eq('not allowed to create? this Symbol')
@@ -269,21 +271,21 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   end
 
   describe 'PUT /update' do
-    let (:super_user) { create(:user, :super_user) }
-    let (:admin) { create(:user, :admin) }
-    let (:final_user) { create(:user, :user) }
-    let (:account) { create(:account) }
+    let(:super_user) { create(:user, :super_user) }
+    let(:admin) { create(:user, :admin) }
+    let(:final_user) { create(:user, :user) }
+    let(:account) { create(:account) }
     context 'when super_user update an account' do
       before do
         sign_in super_user
       end
 
-      it "should return 200 :ok" do
+      it 'should return 200 :ok' do
         put "#{api_v1_accounts_path}/#{account.id}", params: update_params
         expect(response).to have_http_status(:ok)
       end
 
-      it "should show attributes updated" do
+      it 'should show attributes updated' do
         put "#{api_v1_accounts_path}/#{account.id}", params: update_params
         body = JSON.parse(response.body)
         expect(body['account']['client_name']).to eq('Luis Osnet')
@@ -295,12 +297,12 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         sign_in admin
       end
 
-      it "should return 200 :ok" do
+      it 'should return 200 :ok' do
         put "#{api_v1_accounts_path}/#{account.id}", params: update_params
         expect(response).to have_http_status(:ok)
       end
 
-      it "should show attributes updated" do
+      it 'should show attributes updated' do
         put "#{api_v1_accounts_path}/#{account.id}", params: update_params
         body = JSON.parse(response.body)
         expect(body['account']['client_name']).to eq('Luis Osnet')
@@ -312,12 +314,12 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         sign_in final_user
       end
 
-      it "should return 422 :unprocessable_entity" do
+      it 'should return 422 :unprocessable_entity' do
         put "#{api_v1_accounts_path}/#{account.id}", params: update_params
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it "should show attributes updated" do
+      it 'should show attributes updated' do
         put "#{api_v1_accounts_path}/#{account.id}", params: update_params
         body = JSON.parse(response.body)
         expect(body['error']['details']).to eq('not allowed to update? this Symbol')
@@ -326,22 +328,22 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   end
 
   describe 'DELETE /delete' do
-    let (:super_user) { create(:user, :super_user) }
-    let (:admin) { create(:user, :admin) }
-    let (:final_user) { create(:user, :user) }
-    let (:account) { create(:account) }
+    let(:super_user) { create(:user, :super_user) }
+    let(:admin) { create(:user, :admin) }
+    let(:final_user) { create(:user, :user) }
+    let(:account) { create(:account) }
 
     context 'when super_user delete an account' do
       before do
         sign_in super_user
       end
 
-      it "should return 204 :no_content" do
+      it 'should return 204 :no_content' do
         delete "#{api_v1_accounts_path}/#{account.id}"
         expect(response).to have_http_status(:no_content)
       end
 
-      it "should return 422 :unprocessable_entity" do
+      it 'should return 422 :unprocessable_entity' do
         delete "#{api_v1_accounts_path}/2"
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -352,12 +354,12 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         sign_in admin
       end
 
-      it "should return 204 :no_content" do
+      it 'should return 204 :no_content' do
         delete "#{api_v1_accounts_path}/#{account.id}"
         expect(response).to have_http_status(:no_content)
       end
 
-      it "should return 422 :unprocessable_entity" do
+      it 'should return 422 :unprocessable_entity' do
         delete "#{api_v1_accounts_path}/2"
         expect(response).to have_http_status(:unprocessable_entity)
       end
@@ -368,12 +370,12 @@ RSpec.describe "Api::V1::Accounts", type: :request do
         sign_in final_user
       end
 
-      it "should return 422 :unprocessable_entity" do
+      it 'should return 422 :unprocessable_entity' do
         delete "#{api_v1_accounts_path}/#{account.id}"
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it "should return message error" do
+      it 'should return message error' do
         delete "#{api_v1_accounts_path}/2"
         body = JSON.parse(response.body)
         expect(body['error']['details']).to eq('not allowed to destroy? this Symbol')
@@ -384,9 +386,9 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   def create_params
     {
       account: {
-        name: "DAOS Water",
-        client_name: "Anais Ziemann",
-        owner: "Blair Purdy"
+        name: 'DAOS Water',
+        client_name: 'Anais Ziemann',
+        owner: 'Blair Purdy'
       }
     }
   end
@@ -394,8 +396,8 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   def create_params_with_missign_attribute
     {
       account: {
-        client_name: "Anais Ziemann",
-        owner: "Blair Purdy"
+        client_name: 'Anais Ziemann',
+        owner: 'Blair Purdy'
       }
     }
   end
@@ -403,11 +405,10 @@ RSpec.describe "Api::V1::Accounts", type: :request do
   def update_params
     {
       account: {
-        name: "DAOS Water",
-        client_name: "Luis Osnet",
-        owner: "Blair Purdy"
+        name: 'DAOS Water',
+        client_name: 'Luis Osnet',
+        owner: 'Blair Purdy'
       }
     }
   end
-
 end

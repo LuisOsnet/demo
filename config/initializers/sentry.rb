@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Sentry.init do |config|
   config.dsn = Figaro.env.sentry_dns
 
@@ -6,7 +8,7 @@ Sentry.init do |config|
   # We recommend adjusting this value in production.
   config.traces_sample_rate = 1.0
   # or
-  config.traces_sampler = lambda do |context|
+  config.traces_sampler = lambda do |_context|
     true
   end
 end
