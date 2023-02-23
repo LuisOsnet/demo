@@ -28,7 +28,7 @@ info:
     - Movimientos
       - Permite visualizar los movimientos realizados en cada uno de los integrantes de un equipo, es decir, sirve como un log el cual muestra el nombre del usuario, nombre del equipo, fecha de asignacion a un equipo y fecha en la que se elimino del equipo.
       
-    Para consumir cualquiera de los endpoints es necesario autenticarce previamente y especificar el token en el header de autenticación.
+    Para consumir cualquiera de los endpoints es necesario generar un Bearer token el cual se genera mediante el endpoint sign in, después de generarlo copiarlo y pegarlo en el header Authorize.
 servers:
   - url: http://localhost:3001
   - url: https://osnet.herokuapp.com
@@ -315,4 +315,180 @@ paths:
           description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
         422:
           description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
-      
+## Accounts
+  /api/v1/accounts:
+    get:
+      summary: List accounts
+      tags:
+      - Accounts
+      security:
+      - Bearer: []
+      responses:
+        200:
+          description: Ok
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    post:
+      summary: Create account
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account:
+                  properties:
+                    name:
+                      type: string
+                      example: Telmex
+                    client_name:
+                      type: string
+                      example: Carlos Slim
+                    owner:
+                      type: string
+                      example: Jon Due
+                  required:
+                    - name
+                    - client_name
+                    - owner
+      responses:
+        201:
+          description: object created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    properties:
+                      name:
+                        type: string
+                        example: Telmex
+                      client_name:
+                        type: string
+                        example: Carlos Slim
+                      owner:
+                        type: string
+                        example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+  /api/v1/accounts/{id}:
+    put:
+      summary: Update account by id
+      parameters:
+      - name: id
+        in: path
+        description: ID of account to update
+        required: true
+        schema:
+          type: string
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                account:
+                  properties:
+                    name:
+                      type: string
+                      example: Telmex
+                    client_name:
+                      type: string
+                      example: Carlos Slim
+                    owner:
+                      type: string
+                      example: Jon Due
+                  required:
+                    - name
+                    - client_name
+                    - owner
+      responses:
+        200:
+          description: object updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account:
+                    properties:
+                      name:
+                      type: string
+                      example: Telmex
+                    client_name:
+                      type: string
+                      example: Carlos Slim
+                    owner:
+                      type: string
+                      example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    get:
+      summary: Fetch account by id
+      parameters:
+      - name: id
+        in: path
+        description: ID of account to fetch
+        required: true
+        schema:
+          type: string
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  account:
+                    properties:
+                      name:
+                        type: string
+                        example: Telmex
+                      client_name:
+                        type: string
+                        example: Carlos Slim
+                      owner:
+                        type: string
+                        example: Jon Due
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
+    delete:
+      summary: Delete account by id
+      parameters:
+      - name: id
+        in: path
+        description: ID of account to delete
+        required: true
+        schema:
+          type: string
+      tags:
+        - Accounts
+      security:
+        - Bearer: []
+      responses:
+        204:
+          description: No content
+        401:
+          description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
+        422:
+          description: La solicitud estaba bien formada, pero no se pudo seguir debido a errores semánticos.
