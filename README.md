@@ -43,7 +43,7 @@ dkr-start                      Lunch the project on Docker.
 doc                            Generate documentation (Rdoc).
 rubocop                        Run linter (Rubocop).
 setup                          Install dependencies from Gemfile.
-test                           Run test suite (Rspec).
+rspec                          Run test suite (Rspec).
 ```
 ## Documentación
 Esta api cuenta con toda la documentación necesaria y ejemplos del uso del API en el siguiente link:
