@@ -84,6 +84,11 @@ El testing se hace con [Rspec](https://rspec.info/), si quieres ejecutar la suit
 ```bash
 $ make rspec
 ```
+La cobertura actual del proyecto esta por arriba del 90%
+
+![Screen Shot 2023-02-22 at 21 46 41](https://user-images.githubusercontent.com/47339360/220817229-91325ddc-4e0b-41d6-8814-82e1cbde6abf.png)
+
+
 ## Live Demo
 El Demo esta hosteado en Heroku en la ruta:
 ```bash
