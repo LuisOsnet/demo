@@ -7,8 +7,8 @@ help:
 setup: ## Install dependencies from Gemfile.
 	bundle install
 
-test: ## Run test suite (Rspec).
-	bundle exec rspec spec/*
+rspec: ## Run test suite (Rspec).
+	bundle exec rspec
 
 rubocop: ## Run linter (Rubocop).
 	bundle exec rubocop
