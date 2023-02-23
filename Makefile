@@ -19,14 +19,14 @@ doc: ## Generate documentation (Rdoc).
 dkr-build: ## Build project on Docker.
 	docker-compose build
 
-dkr-setub: ## Build and rails prepare.
+dkr-setup: ## Build and rails prepare.
 	docker-compose build && docker-compose run web rake db:drop db:create db:migrate db:seed
 
-dkr-start: ## lunch the project on Docker.
+dkr-start: ## Lunch the project on Docker.
 	docker-compose up
 
-dkr-debug-mode: ## lunch the project on Docker as developer mode.
+dkr-debug-mode: ## Lunch the project on Docker as developer mode.
 	docker-compose run --service-ports web
 
-dkr-console: ## lunch the console on Docker.
+dkr-console: ## Lunch console on Docker.
 	docker-compose run web bash
