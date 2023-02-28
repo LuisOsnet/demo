@@ -49,6 +49,26 @@ paths:
       responses:
         200:
           description: Sesión iniciada exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    properties:
+                      id:
+                        type: string
+                        example: bcd1e285-6b17-429a-a2bf-50fad393eefa
+                      name:
+                        type: string
+                        example: Jon Due
+                      jti:
+                        type: string
+                        example: d7257bee-b1b5-41b9-a757-58dc576f4b92
+                     
+                      role:
+                        type: string
+                        example: super_user
         401:
           description: El servidor no puede proporcionar acceso a la recurso solicitado porque no ha proporcionado las credenciales de acceso válidas o no tiene permiso para acceder.
         422:

@@ -24,7 +24,14 @@ module Api
         def respond_with(resource, _opts = {})
           return unauthenticated unless resource.valid?
 
-          render json: I18n.t('response.devise.sessions.signed_in'), status: :ok
+          render json: {
+            user: {
+              id: resource&.id,
+              name: resource&.name,
+              jti: resource&.jti,
+              role: resource&.roles&.first&.name
+            }
+          }, status: :ok
         end
 
         ##
