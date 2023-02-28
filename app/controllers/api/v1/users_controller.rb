@@ -48,7 +48,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    authorize :user, :update?
     @user = users_service(filtered_params).update
     render :show, status: :ok
   rescue StandardError => e
