@@ -35,7 +35,7 @@ module Api
       def update
         ActiveRecord::Base.transaction do
           user = User.update!(@params[:id], @params.except(:role))
-          user.roles.destroy_all if user.roles.any?
+          user.roles.destroy_all if user.roles.any? && @params[:role].present?
           add_roles_to(user)
           user
         end
